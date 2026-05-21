@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BackendServices/SeaHawkServices.Application/SeaHawkServices.Application.csproj" />
+  <Project Path="BackendServices/SeaHawkServices.Domain/SeaHawkServices.Domain.csproj" />
+  <Project Path="BackendServices/SeaHawkServices.Infrastructure/SeaHawkServices.Infrastructure.csproj" />
+  <Project Path="Seahawk WebAPI/Seahawk WebAPI.csproj" />
+</Solution>

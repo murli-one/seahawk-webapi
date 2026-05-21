@@ -1,0 +1,6 @@
+@Seahawk_WebAPI_HostAddress = http://localhost:5161
+
+GET {{Seahawk_WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
