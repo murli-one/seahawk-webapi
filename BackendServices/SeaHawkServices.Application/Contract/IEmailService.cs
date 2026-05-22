@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeaHawkService.Application.Contract
+namespace SeaHawkServices.Application.Contract
 {
     //public interface IEmailService
     //{

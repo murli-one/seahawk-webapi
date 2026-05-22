@@ -1,13 +1,14 @@
 using DinkToPdf;
 using DinkToPdf.Contracts;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Options;
-using SeaHawkService.Application.Contract;
+using Microsoft.IdentityModel.Tokens;
+using Seahawk_WebAPI.Helpers;
+//using SeaHawkServices.Application.Contract;
 using SeaHawkService.Infrastructure.Emails;
 using SeaHawkServices.Application.Common.Interfaces;
 using SeaHawkServices.Application.Contract;
@@ -17,23 +18,35 @@ using SeaHawkServices.Application.Services.Interface;
 using SeaHawkServices.Domain.Entities;
 using SeaHawkServices.Infrastructure.Data;
 using SeaHawkServices.Infrastructure.DHL;
+using SeaHawkServices.Infrastructure.Emails;
 using SeaHawkServices.Infrastructure.FedEx;
 using SeaHawkServices.Infrastructure.Reports;
 using SeaHawkServices.Infrastructure.Repository;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json.Serialization;
-using Seahawk_WebAPI.Helpers;
+
+using System.Runtime.InteropServices;
 
 var context = new CustomAssemblyLoadContext();
 
-context.LoadUnmanagedLibrary(
-    Path.Combine(
-        Directory.GetCurrentDirectory(),
-        "DinkToPdf",
-        "64bit",
-        "libwkhtmltox.dll"
-    )
-);
+//context.LoadUnmanagedLibrary(
+//    Path.Combine(
+//        Directory.GetCurrentDirectory(),
+//        "DinkToPdf",
+//        "64bit",
+//        "libwkhtmltox.dll"
+//    )
+//);
+
+var libraryPath = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+    ? Path.Combine(Directory.GetCurrentDirectory(), "DinkToPdf", "64bit", "libwkhtmltox.dll")
+    : "/usr/lib/libwkhtmltox.so";
+
+context.LoadUnmanagedLibrary(libraryPath);
+
+
+//------------------
 
 var builder = WebApplication.CreateBuilder(args);
 

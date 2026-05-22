@@ -6,14 +6,15 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
-using SeaHawkService.Application.Contract;
+using SeaHawkServices.Application.Contract;
 using Data;
 using Microsoft.AspNetCore.Hosting;
 using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using SeaHawkService.Infrastructure.Emails;
 
-namespace SeaHawkService.Infrastructure.Emails
+namespace SeaHawkServices.Infrastructure.Emails
 {
     public class SmtpEmailSender : IEmailSender
     {
