@@ -13,6 +13,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using static SeaHawkServices.Domain.Entities.Enums;
+using SeaHawkServices.Application.Contract;
 
 namespace Seahawk_WebAPI.Controllers.Api;
 
@@ -346,6 +347,7 @@ Please click the link below to set a new password:<br/>
 <a href='{HtmlEncoder.Default.Encode(resetLink)}'>Reset Password</a><br/><br/>
 If you did not request this, you can safely ignore this email.";
 
+       
         await _emailSender.SendEmailAsync(user.Email!, "Password Reset - SeaHawk Services", htmlBody);
         return Ok(new { message = "If an account exists for this email, a reset link has been sent." });
     }
