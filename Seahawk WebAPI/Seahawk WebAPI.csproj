@@ -9,7 +9,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <None Remove="DinkToPdf\64bit\libwkhtmltox.dll" />
   </ItemGroup>
 
@@ -17,7 +17,7 @@
     <Content Include="DinkToPdf\64bit\libwkhtmltox.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
+  </ItemGroup> -->
 
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.105.0" />
