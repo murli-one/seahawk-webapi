@@ -26,6 +26,12 @@ RUN dotnet publish "Seahawk WebAPI.csproj" -c Release -o /app/publish /p:UseAppH
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
+# Install wkhtmltopdf dependencies for DinkToPdf
+RUN apt-get update && apt-get install -y \
+    wkhtmltopdf \
+    libgdiplus \
+    libc6-dev
+
 COPY --from=build /app/publish .
 
 # Render provides PORT automatically
@@ -33,6 +39,5 @@ ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 EXPOSE 8080
-
 
 ENTRYPOINT ["dotnet", "Seahawk WebAPI.dll"]
