@@ -6,27 +6,35 @@ WORKDIR /src
 
 # Copy csproj files
 COPY ["Seahawk WebAPI/Seahawk WebAPI.csproj", "Seahawk WebAPI/"]
-COPY ["SeaHawkServices.Application/SeaHawkServices.Application.csproj", "SeaHawkServices.Application/"]
-COPY ["SeaHawkServices.Domain/SeaHawkServices.Domain.csproj", "SeaHawkServices.Domain/"]
-COPY ["SeaHawkServices.Infrastructure/SeaHawkServices.Infrastructure.csproj", "SeaHawkServices.Infrastructure/"]
+
+COPY ["BackendServices/SeaHawkServices.Application/SeaHawkServices.Application.csproj", "BackendServices/SeaHawkServices.Application/"]
+
+COPY ["BackendServices/SeaHawkServices.Domain/SeaHawkServices.Domain.csproj", "BackendServices/SeaHawkServices.Domain/"]
+
+COPY ["BackendServices/SeaHawkServices.Infrastructure/SeaHawkServices.Infrastructure.csproj", "BackendServices/SeaHawkServices.Infrastructure/"]
 
 # Restore dependencies
 RUN dotnet restore "Seahawk WebAPI/Seahawk WebAPI.csproj"
 
-# Copy full source code
+# Copy all source code
 COPY . .
 
-# Publish API project
+# Publish API
 WORKDIR "/src/Seahawk WebAPI"
-RUN dotnet publish "Seahawk WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+RUN dotnet publish "Seahawk WebAPI.csproj" \
+    -c Release \
+    -o /app/publish \
+    /p:UseAppHost=false
 
 # =========================
 # Runtime Stage
 # =========================
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+
 WORKDIR /app
 
-# Install wkhtmltopdf dependencies for DinkToPdf
+# Install wkhtmltopdf dependencies
 RUN apt-get update && apt-get install -y \
     wkhtmltopdf \
     libgdiplus \
@@ -34,7 +42,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=build /app/publish .
 
-# Render provides PORT automatically
+# Render PORT
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
