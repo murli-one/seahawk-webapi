@@ -29,9 +29,10 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Render provides PORT automatically
-ENV ASPNETCORE_URLS=http://0.0.0.0:${PORT}
+ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
 
-EXPOSE 10000
+EXPOSE 8080
+
 
 ENTRYPOINT ["dotnet", "Seahawk WebAPI.dll"]
